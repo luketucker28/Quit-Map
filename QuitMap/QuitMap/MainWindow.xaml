@@ -1,0 +1,14 @@
+﻿<Window x:Class="QuitMap.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="450" Width="600">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="C:\Users\lucas\Source\Repos\Quit-Map\QuitMap\Images\cigarette.jpg"/>
+        </Grid.Background>
+        <Button Content="Choose Your Quit Path" x:Name="QuitPath" Click="Quit" Margin="54,128,384,252" Background="#FFE4DC3F"/>
+        <Button Content="Enter Your Data" x:Name="SmokingData" Click="Data" Margin="54,192,384,127" Background="#FFE6DE3D"/>
+        <Button Content="Track Your Progress" x:Name="Progress" Click="Track" Margin="54,270,384,104" Background="#FFE0D83F"/>
+        <TextBlock HorizontalAlignment="Left" Margin="74,23,0,0" TextWrapping="Wrap" Text="Quit It" VerticalAlignment="Top" Width="431" Height="61" FontSize="24" FontFamily="Century" Foreground="#FFE0D7D7"/>
+    </Grid>
+</Window>
