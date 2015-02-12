@@ -27,7 +27,18 @@ namespace QuitMap
 
         private void Quit(object sender, RoutedEventArgs e)
         {
+            QuitPath.IsEnabled = true;
+           
+        }
 
+        private void Data(object sender, RoutedEventArgs e)
+        {
+            SmokingData.IsEnabled = true;
+        }
+
+        private void Track(object sender, RoutedEventArgs e)
+        {
+            Progress.IsEnabled = true;
         }
     }
 }

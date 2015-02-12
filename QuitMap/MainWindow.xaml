@@ -4,7 +4,7 @@
         Title="MainWindow" Height="450" Width="600">
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\lucas\Source\Repos\Quit-Map\QuitMap\Images\cigarette.jpg"/>
+            <ImageBrush ImageSource="C:\Users\lucas\Source\Repos\Quit-Map\Images\cigarette.jpg"/>
         </Grid.Background>
         <Button Content="Choose Your Quit Path" x:Name="QuitPath" Click="Quit" Margin="54,128,384,252" Background="#FFE4DC3F"/>
         <Button Content="Enter Your Data" x:Name="SmokingData" Click="Data" Margin="54,192,384,127" Background="#FFE6DE3D"/>
