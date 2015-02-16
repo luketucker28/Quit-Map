@@ -11,11 +11,16 @@ namespace QuitMap.Model
 
     public class DataEntry
     {
+        public int DataEntryId { get; set; }
         public string Date { get; set; }
         public int NumberSmoked { get; set; }
         public int SmokeReduction { get; set; }
 
 
+        public DataEntry()
+        {
+
+        }
         public DataEntry(string newDate, int smoked, int reduction)
         {
 
@@ -23,7 +28,8 @@ namespace QuitMap.Model
             this.NumberSmoked = smoked;
             this.SmokeReduction = reduction;
         }
-
+      
     }
-}
+    }
+
 

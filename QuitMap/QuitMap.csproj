@@ -74,6 +74,7 @@
     <Compile Include="Repository\IDataEntryRepository.cs" />
     <Compile Include="Repository\ITargetRepository.cs" />
     <Compile Include="Repository\TargetRepository.cs" />
+    <Compile Include="QuitMapContext.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
