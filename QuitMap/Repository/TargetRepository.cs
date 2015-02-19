@@ -68,14 +68,13 @@ namespace QuitMap.Repository
             //return query.First<Target>();
         }
 
-        public Target GetByDate(string date)
+        public IEnumerable<Target> GetByDate(string d)
         {           
-            var queryDate = from Target in _dbContext.Targets
-                        where Target.Date == date
+            var query = from Target in _dbContext.Targets
+                        where Target.Date == d
                         select Target;
-
-
-            return queryDate.ToString();
+            return query.ToArray<Target>(); 
+           
         }
         public void Dispose()
         {

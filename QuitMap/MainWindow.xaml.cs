@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using QuitMap.Repository;
+using Xceed.Wpf.Toolkit;
+using Xceed.Wpf.DataGrid;
 namespace QuitMap
 {
     /// <summary>
@@ -20,6 +22,8 @@ namespace QuitMap
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static TargetRepository repo = new TargetRepository();
+        public static DataEntryRepository repo1 = new DataEntryRepository();
         public MainWindow()
         {
             InitializeComponent();
@@ -27,18 +31,43 @@ namespace QuitMap
 
         private void Quit(object sender, RoutedEventArgs e)
         {
-            QuitPath.IsEnabled = true;
+        QuitPath.Visibility = Visibility.Collapsed;
+        SmokingData.Visibility = Visibility.Collapsed;
+        Progress.Visibility = Visibility.Collapsed;
+       
            
         }
 
         private void Data(object sender, RoutedEventArgs e)
         {
-            SmokingData.IsEnabled = true;
+            QuitPath.Visibility = Visibility.Collapsed;
+            SmokingData.Visibility = Visibility.Collapsed;
+            Progress.Visibility = Visibility.Collapsed;
+            NewEventForm.Visibility = Visibility.Visible;
+            SubmitSmokes.Visibility = Visibility.Visible;
         }
 
         private void Track(object sender, RoutedEventArgs e)
         {
-            Progress.IsEnabled = true;
+            QuitPath.Visibility = Visibility.Collapsed;
+            SmokingData.Visibility = Visibility.Collapsed;
+            Progress.Visibility = Visibility.Collapsed;
+           
+        }
+
+        private void AddSmokes_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddNewRow(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SmokeDaySubmit(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

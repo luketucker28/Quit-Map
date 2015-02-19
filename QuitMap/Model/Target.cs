@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace QuitMap.Model
 {
-    public class Target
+    public class Target : INotifyPropertyChanged
     {
         public int TargetId { get; set; }
         public string Date { get; set; }
@@ -27,7 +27,8 @@ namespace QuitMap.Model
             this.Antecedant = anteced;
         
         }
-        
+
+        public event PropertyChangedEventHandler PropertyChanged;
        
     }
 }

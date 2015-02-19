@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 namespace QuitMap.Model
 {
 
-    public class DataEntry
+    public class DataEntry : INotifyPropertyChanged
     {
         public int DataEntryId { get; set; }
         public string Date { get; set; }
@@ -28,7 +28,7 @@ namespace QuitMap.Model
             this.NumberSmoked = smoked;
             this.SmokeReduction = reduction;
         }
-      
+        public event PropertyChangedEventHandler PropertyChanged;
     }
     }
 
