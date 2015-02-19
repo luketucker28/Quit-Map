@@ -10,7 +10,21 @@
         </Grid.Background>
         <StackPanel Width="410" Orientation="Horizontal"  VerticalAlignment="Top" Name="NewEventForm" Visibility="Collapsed">
             <DatePicker Name="StartDate" Margin="5" />
-            <xctk:TimePicker Name="Timer" AllowDrop="True" Background="AntiqueWhite" IsOpen="False" TimeInterval="30"  StartTime="12:00"/>
+            <xctk:TimePicker Name="Timer" AllowDrop="True" Background="AntiqueWhite" IsOpen="True" TimeInterval="30"  StartTime="12:00"/>
+            <ComboBox Name="Place" Width="100">
+                <ComboBoxItem Name="Home">Home</ComboBoxItem>
+                <ComboBoxItem Name="Work">Work</ComboBoxItem>
+                <ComboBoxItem Name="School">School</ComboBoxItem>
+                <ComboBoxItem Name="Driving">Driving</ComboBoxItem>
+                <ComboBoxItem Name="Social">Social Event</ComboBoxItem>
+            </ComboBox>
+            <ComboBox Name="Antecedent" Width="100">
+                <ComboBoxItem Name="WorkStress">Work Stress</ComboBoxItem>
+                <ComboBoxItem Name="Boredom">Boredom</ComboBoxItem>
+                <ComboBoxItem Name="Sadness">Sadness</ComboBoxItem>
+                <ComboBoxItem Name="Anger">Anger</ComboBoxItem>
+                <ComboBoxItem Name="Sex">Sex</ComboBoxItem>
+            </ComboBox>
             <Button Content="Add" Margin="5" Name="AddEvent" Click="AddSmokes_Click" />
             <Button Content="+" Margin="5" Name="NewSmoke" Click="AddNewRow"></Button>
           
