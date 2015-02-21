@@ -53,7 +53,7 @@ namespace QuitMap.Repository
             _dbContext.SaveChanges();
         }
 
-
+        
         public IEnumerable<DataEntry> All()
         {
             var qu = from DataEntry in _dbContext.DataEntries select DataEntry;
@@ -66,6 +66,12 @@ namespace QuitMap.Repository
                         where DataEntry.DataEntryId == id
                         select DataEntry;
             return query.First<DataEntry>();
+        }
+        public DataEntry FirstEntry() {
+
+            var query = from DataEntry in _dbContext.DataEntries select DataEntry;
+            return query.ToList<DataEntry>().ElementAt<DataEntry>(0);
+                    
         }
 
         public DataEntry GetByDate(string date)

@@ -76,6 +76,7 @@ namespace QuitMap.Repository
             return query.ToArray<Target>(); 
            
         }
+
         public void Dispose()
         {
             _dbContext.Dispose();

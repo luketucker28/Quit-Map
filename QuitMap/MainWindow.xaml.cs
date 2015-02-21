@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QuitMap.Repository;
 using Xceed.Wpf.Toolkit;
+using QuitMap.Model;
 using Xceed.Wpf.DataGrid;
 namespace QuitMap
 {
@@ -31,12 +32,14 @@ namespace QuitMap
 
         private void Quit(object sender, RoutedEventArgs e)
         {
-        QuitPath.Visibility = Visibility.Collapsed;
-        SmokingData.Visibility = Visibility.Collapsed;
-        Progress.Visibility = Visibility.Collapsed;
+         QuitPath.Visibility = Visibility.Collapsed;
+            SmokingData.Visibility = Visibility.Collapsed;
+            Progress.Visibility = Visibility.Collapsed;
+            ChoosePlan.Visibility = Visibility.Visible;
+        }
        
            
-        }
+        
 
         private void Data(object sender, RoutedEventArgs e)
         {
@@ -53,13 +56,13 @@ namespace QuitMap
             SmokingData.Visibility = Visibility.Collapsed;
             Progress.Visibility = Visibility.Collapsed;
            
+           
         }
 
         private void AddSmokes_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void AddNewRow(object sender, RoutedEventArgs e)
         {
 
@@ -68,6 +71,25 @@ namespace QuitMap
         private void SmokeDaySubmit(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void Plan_Submit(object sender, RoutedEventArgs e)
+        {
+
+
+
+            if (DailySmoked.SelectedValue == null || ReductionPerWeek.SelectedValue == null || StartDate.SelectedDate == null)
+                NullValues.Visibility = Visibility.Visible;
+            if (repo1.GetCount() != 0)
+                PlanInPlace.Visibility = Visibility.Visible;
+            else
+            {
+                int smokeDaily = (int)DailySmoked.SelectedValue;
+                int reduceRate = (int)ReductionPerWeek.SelectedValue;
+                string starting = StartDate.Text;
+                repo1.Add(new DataEntry(starting, smokeDaily, reduceRate));
+
+            }
         }
     }
 }

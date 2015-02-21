@@ -28,6 +28,7 @@ namespace QuitMap.Model
             this.NumberSmoked = smoked;
             this.SmokeReduction = reduction;
         }
+        
         public event PropertyChangedEventHandler PropertyChanged;
     }
     }

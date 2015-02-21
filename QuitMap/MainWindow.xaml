@@ -1,6 +1,7 @@
 ﻿<Window x:Class="QuitMap.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
          xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
         Title="MainWindow" Height="450" Width="600">
@@ -8,33 +9,61 @@
         <Grid.Background>
             <ImageBrush ImageSource="C:\Users\lucas\Source\Repos\Quit-Map\Images\cigarette.jpg"/>
         </Grid.Background>
+        <StackPanel Name="ChoosePlan" Width="400" VerticalAlignment="Center" Visibility="Collapsed">
+            <TextBlock Name="NullValues" Visibility="Collapsed">Please Fill Out All Fields</TextBlock>
+            <TextBlock Name="PlanInPlace" Visibility="Collapsed">Quit Plan in place: please delete current plan</TextBlock>
+            <TextBlock Name="DateBefore" Visibility="Collapsed">Please Select a Date After Today.</TextBlock>
+
+            <TextBlock>Pick Your Quit Plan</TextBlock>
+            <Label Name="StartDateLabel">Select Start Date</Label>
+            <DatePicker Name="StartDate" Margin="5"/>
+            <Label Name="NumberSmokedLabel">Current Cigarettes Smoked Per Day</Label>
+            <ComboBox Name="DailySmoked" Width="120">
+                <sys:Int32>1</sys:Int32>
+                <sys:Int32>2</sys:Int32>
+                <sys:Int32>3</sys:Int32>
+                <sys:Int32>4</sys:Int32>
+                <sys:Int32>5</sys:Int32>
+                <sys:Int32>6</sys:Int32>
+                <sys:Int32>7</sys:Int32>
+                <sys:Int32>8</sys:Int32>
+                <sys:Int32>9</sys:Int32>
+                <sys:Int32>10</sys:Int32>
+                <sys:Int32>11</sys:Int32>
+                <sys:Int32>12</sys:Int32>
+                <sys:Int32>13</sys:Int32>
+                <sys:Int32>14</sys:Int32>
+                <sys:Int32>15</sys:Int32>
+            </ComboBox>
+            <Label Name="LabelReduction">Reduce by How Many</Label>
+            <ComboBox Name="ReductionPerWeek" Width="120">
+                <sys:Int32>1</sys:Int32>
+                <sys:Int32>2</sys:Int32>
+                <sys:Int32>3</sys:Int32>
+                <sys:Int32>4</sys:Int32>
+                <sys:Int32>5</sys:Int32>
+            </ComboBox>
+            <Button Content="SubmitPlan" Click="Plan_Submit"/>
+        </StackPanel>
         <StackPanel Width="410" Orientation="Horizontal"  VerticalAlignment="Top" Name="NewEventForm" Visibility="Collapsed">
-            <DatePicker Name="StartDate" Margin="5" />
-            <xctk:TimePicker Name="Timer" AllowDrop="True" Background="AntiqueWhite" IsOpen="True" TimeInterval="30"  StartTime="12:00"/>
-            <ComboBox Name="Place" Width="100">
+            <DatePicker Name="DayToEnter" Margin="5" />
+            <Button Content="+" Margin="5" Name="NewSmokeTwo" Click="AddNewRow"></Button>
+            <ComboBox Name="Place" Width="100">Place
                 <ComboBoxItem Name="Home">Home</ComboBoxItem>
                 <ComboBoxItem Name="Work">Work</ComboBoxItem>
                 <ComboBoxItem Name="School">School</ComboBoxItem>
                 <ComboBoxItem Name="Driving">Driving</ComboBoxItem>
                 <ComboBoxItem Name="Social">Social Event</ComboBoxItem>
             </ComboBox>
-            <ComboBox Name="Antecedent" Width="100">
+            <ComboBox Name="Antecedent" Width="100">Antecedent
                 <ComboBoxItem Name="WorkStress">Work Stress</ComboBoxItem>
                 <ComboBoxItem Name="Boredom">Boredom</ComboBoxItem>
                 <ComboBoxItem Name="Sadness">Sadness</ComboBoxItem>
                 <ComboBoxItem Name="Anger">Anger</ComboBoxItem>
                 <ComboBoxItem Name="Sex">Sex</ComboBoxItem>
             </ComboBox>
-            <Button Content="Add" Margin="5" Name="AddEvent" Click="AddSmokes_Click" />
-            <Button Content="+" Margin="5" Name="NewSmoke" Click="AddNewRow"></Button>
-          
-         </StackPanel>
-        <StackPanel Width="410" Orientation="Horizontal"  VerticalAlignment="Top" Name="OneEventForm" Visibility="Collapsed">
-            <DatePicker Name="StartDateTwo" Margin="5" />
-            <Button Content="Add" Margin="5" Name="AddEventTwo" Click="AddSmokes_Click" />
-            <Button Content="+" Margin="5" Name="NewSmokeTwo" Click="AddNewRow"></Button>
+           <Button Content="Submit" Width="50" VerticalAlignment="Center" Margin="10" Name="SubmitSmokes" Click="SmokeDaySubmit"/>
         </StackPanel>
-        <Button Content="Submit" Width="50" VerticalAlignment="Center" Margin="10" Name="SubmitSmokes" Click="SmokeDaySubmit" Visibility="Collapsed"/>
         <Button Content="ChooseYourQuitPath" Name="QuitPath" Click="Quit" Margin="54,128,384,252" Background="#FFE4DC3F"/>
         <Button Content="EnterYourData" Name="SmokingData" Click="Data" Margin="54,192,384,127" Background="#FFE6DE3D"/>
         <Button Content="TrackYourProgress" Name="Progress" Click="Track" Margin="54,270,384,104" Background="#FFE0D83F"/>
