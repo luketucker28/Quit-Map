@@ -43,10 +43,19 @@
                 <sys:Int32>4</sys:Int32>
                 <sys:Int32>5</sys:Int32>
             </ComboBox>
-            <Button Content="SubmitPlan" Click="Plan_Submit"/>
+            <Button Content="SubmitPlan" Name="SubmitPlan" Click="Plan_Submit"/>        
         </StackPanel>
+        <StackPanel Name="ExitEditButtons" Width="300" VerticalAlignment="Bottom" Visibility="Collapsed">
+            <Button Content="ExitPlan" Name="Exiting" Click="ReturnToInitial"/>
+            <Button Content="EditPlan" Name="EditButton" Click="Editing" Visibility="Collapsed"/>
+        </StackPanel>          
+        <DataGrid Name="SmokingDataGrid" Visibility="Collapsed" Width="400">
+            <DataGridTextColumn Width="130">
+            </DataGridTextColumn>    
+        </DataGrid>
         <StackPanel Width="410" Orientation="Horizontal"  VerticalAlignment="Top" Name="NewEventForm" Visibility="Collapsed">
             <DatePicker Name="DayToEnter" Margin="5" />
+            <TextBox Name="TimeOfSmoke" Margin="10"/>
             <Button Content="+" Margin="5" Name="NewSmokeTwo" Click="AddNewRow"></Button>
             <ComboBox Name="Place" Width="100">Place
                 <ComboBoxItem Name="Home">Home</ComboBoxItem>
@@ -62,11 +71,24 @@
                 <ComboBoxItem Name="Anger">Anger</ComboBoxItem>
                 <ComboBoxItem Name="Sex">Sex</ComboBoxItem>
             </ComboBox>
-           <Button Content="Submit" Width="50" VerticalAlignment="Center" Margin="10" Name="SubmitSmokes" Click="SmokeDaySubmit"/>
+            <Button Content="Submit" Width="50" VerticalAlignment="Center" Margin="10" Name="SubmitSmokes" Click="SmokeDaySubmit"/>
         </StackPanel>
         <Button Content="ChooseYourQuitPath" Name="QuitPath" Click="Quit" Margin="54,128,384,252" Background="#FFE4DC3F"/>
         <Button Content="EnterYourData" Name="SmokingData" Click="Data" Margin="54,192,384,127" Background="#FFE6DE3D"/>
         <Button Content="TrackYourProgress" Name="Progress" Click="Track" Margin="54,270,384,104" Background="#FFE0D83F"/>
         <TextBlock HorizontalAlignment="Left" Margin="74,23,0,0" TextWrapping="Wrap" Text="Quit It" VerticalAlignment="Top" Width="431" Height="61" FontSize="24" FontFamily="Century" Foreground="#FFE0D7D7"/>
+        <StackPanel Name="QuitBox" Width="420" Visibility="Collapsed">
+            <ListBox HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="400" Name="QuitDayAdded" ItemsSource="{Binding NotifyOnSourceUpdated=True}">
+                <ListBox.ItemTemplate>                   
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="Targeter" Text="{Binding Date, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"></TextBlock>
+                            <TextBlock x:Name="Dated" Text="{Binding NumberSmoked, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"></TextBlock>
+                            <TextBlock x:Name="Reduction" Text="{Binding SmokeReduction, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"></TextBlock>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
     </Grid>
 </Window>

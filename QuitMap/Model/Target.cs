@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace QuitMap.Model
 {
-    public class Target : INotifyPropertyChanged
+    public class Target 
     {
         public int TargetId { get; set; }
         public string Date { get; set; }
