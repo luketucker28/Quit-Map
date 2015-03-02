@@ -82,7 +82,7 @@ namespace QuitMap.Repository
             return a.First<DataEntry>();
 
         }
-         public List<DataEntry> GetByDDate(string d)
+         public List<DataEntry> GetByDate(string d)
         {
             var a = (from DataEntry in _dbContext.DataEntries
                      where DataEntry.Date == d

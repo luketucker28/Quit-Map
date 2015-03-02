@@ -70,16 +70,18 @@ namespace QuitMap.Repository
 
         public List<Target> GetByDate(string d)
         {
-            var a = (from Target in _dbContext.Targets
+            var a = from Target in _dbContext.Targets
                      where Target.Date == d
-                     select Target).ToList();
-            return a;
-
+                     select Target;
+            return a.ToList<Target>();
+            
         }
-        public List<Target> OrderByDate()
+        public  IEnumerable<Target> OrderByDate()
         {
-         var query = from Target in _dbContext.Targets select Target OrderBy 
-                   
+            var query = (from Target in _dbContext.Targets
+                         orderby Target.Date select Target).ToList();
+            return query;
+        }          
         public Target FirstEntry()
         {
 
