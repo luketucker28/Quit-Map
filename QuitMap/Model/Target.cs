@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,15 @@ using System.Threading.Tasks;
 namespace QuitMap.Model
 {
     public class Target 
-    {
+    { //  [Required]
         public int TargetId { get; set; }
+      //  [Required]
         public string Date { get; set; }
+      //  [Required]
         public string Time { get; set; }
+      //  [Required]
         public string Place { get; set; }
+      //  [Required]
         public string Antecedant { get; set; }
 
         public Target()

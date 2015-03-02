@@ -17,7 +17,6 @@ namespace QuitMap.Repository
         void Clear(); 
         IEnumerable<DataEntry> All(); 
         DataEntry GetById(int id); 
-        DataEntry GetByDate(string date); 
         
     }
 }

@@ -13,9 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QuitMap.Repository;
-using Xceed.Wpf.Toolkit;
+
 using QuitMap.Model;
-using Xceed.Wpf.DataGrid;
+
 namespace QuitMap
 {
     /// <summary>
@@ -28,56 +28,96 @@ namespace QuitMap
         public MainWindow()
         {
             InitializeComponent();
+           
             QuitDayAdded.DataContext = repo.Context().DataEntries.Local;
+            SmokingDataBox.DataContext = repo1.Context().Targets.Local;
+            ProgressMatcher.DataContext = repo.FirstEntry();
+            ProgressMatcher.DataContext = repo1.Context().Targets.Local;
+           
         }
-
-        private void Quit(object sender, RoutedEventArgs e)
-        {
-            QuitPath.Visibility = Visibility.Collapsed;
-            SmokingData.Visibility = Visibility.Collapsed;
-            Progress.Visibility = Visibility.Collapsed;
-            ChoosePlan.Visibility = Visibility.Visible;
-            ExitEditButtons.Visibility = Visibility.Visible;
-        }
-
-
-
 
         private void Data(object sender, RoutedEventArgs e)
         {
-            QuitPath.Visibility = Visibility.Collapsed;
-            SmokingData.Visibility = Visibility.Collapsed;
-            Progress.Visibility = Visibility.Collapsed;
+            HideStartPage();
             NewEventForm.Visibility = Visibility.Visible;
-            SubmitSmokes.Visibility = Visibility.Visible;
+            ButtonsForDataEntry.Visibility = Visibility.Visible;
             
-        }
-
-        private void Track(object sender, RoutedEventArgs e)
+        } 
+        private void SmokeDaySubmit(object sender, RoutedEventArgs e)
         {
-            QuitPath.Visibility = Visibility.Collapsed;
-            SmokingData.Visibility = Visibility.Collapsed;
-            Progress.Visibility = Visibility.Collapsed;
-
+            DateTime smokeDate = (DateTime)DayToEnter.SelectedDate;
+            string smokeTime = TimeOfSmoke.Text;
+            string placeOfSmoke = Place.SelectionBoxItem.ToString();
+            string AntecedantOFSmoke = Antecedent.SelectionBoxItem.ToString();
+            if (smokeDate == null || smokeTime == null || placeOfSmoke == null || AntecedantOFSmoke == null)
+            {
+                NullValuesExist.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                NewEventForm.Visibility = Visibility.Collapsed;
+                ButtonsForDataEntry.Visibility = Visibility.Visible;
+                repo1.OrderByDate();
+                repo1.Add(new Target(smokeDate.ToShortDateString(), smokeTime, placeOfSmoke, AntecedantOFSmoke));
+                SmokeDataStack.Visibility = Visibility.Visible;
+            }
+           
 
         }
-
         private void AddSmokes_Click(object sender, RoutedEventArgs e)
         {
+           DateTime smokeDate = (DateTime)DayToEnter.SelectedDate;
+           string smokeTime = TimeOfSmoke.Text;
+           string placeOfSmoke = (string)Place.SelectedValue;
+           string AntecedantOFSmoke = (string)Antecedent.SelectedValue;
+           if (smokeDate == null || smokeTime == null || placeOfSmoke == null || AntecedantOFSmoke == null)
+           {
+               NullValuesExist.Visibility = Visibility.Visible;
+           }
+           else
+           {
+
+           }
+        }
+        private void ExitSmokePage(object sender, RoutedEventArgs e)
+        {
+            ReturnToStartPage();
+            NewEventForm.Visibility = Visibility.Collapsed;
+            ButtonsForDataEntry.Visibility = Visibility.Collapsed;
+            SmokeDataStack.Visibility = Visibility.Collapsed;       
 
         }
+
+        private void ReturnToStartPage()
+        {
+            QuitPath.Visibility = Visibility.Visible;
+            SmokingData.Visibility = Visibility.Visible;
+            Progress.Visibility = Visibility.Visible;
+            SmokeDataStack.Visibility = Visibility.Collapsed;    
+        }
+
+        private void EditSmokingInfo(object sender, RoutedEventArgs e)
+        {
+
+        }
+        
+
+       
         private void AddNewRow(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void SmokeDaySubmit(object sender, RoutedEventArgs e)
+        
+        //Adding DataEntry e.g Target Info
+
+        private void Quit(object sender, RoutedEventArgs e)
         {
-            NewEventForm.Visibility = Visibility.Collapsed;
-            SmokingDataGrid.Visibility = Visibility.Visible;
-
+            HideStartPage();
+            ChoosePlan.Visibility = Visibility.Visible;
+            ExitEditButtons.Visibility = Visibility.Visible;
         }
-
+        
         private void Plan_Submit(object sender, RoutedEventArgs e)
         {
             if (DailySmoked.SelectedValue == null || ReductionPerWeek.SelectedValue == null || StartDate.SelectedDate == null)
@@ -85,7 +125,7 @@ namespace QuitMap
                 NullValues.Visibility = Visibility.Visible;
             }               
             else if (repo.GetCount() != 0) {
-                PlanInPlace.Visibility = Visibility.Visible; 
+                DeleteCurrentPlan.Visibility = Visibility.Visible;
             }                     
             else
             {
@@ -120,9 +160,7 @@ namespace QuitMap
 
         private void ReturnToInitial(object sender, RoutedEventArgs e)
         {
-            QuitPath.Visibility = Visibility.Visible;
-            SmokingData.Visibility = Visibility.Visible;
-            Progress.Visibility = Visibility.Visible;
+            ReturnToStartPage();
             ChoosePlan.Visibility = Visibility.Collapsed;
             SubmitSmokes.Visibility = Visibility.Collapsed;
             QuitDayAdded.Visibility = Visibility.Collapsed;
@@ -136,5 +174,92 @@ namespace QuitMap
             EditButton.Visibility = Visibility.Collapsed;
             QuitDayAdded.Visibility = Visibility.Collapsed;
         }
+// tracking page
+        private void Track(object sender, RoutedEventArgs e)
+        {
+            HideStartPage();
+            ProgressTrack.Visibility = Visibility.Visible;
+            DatePickerFinder.Visibility = Visibility.Visible;
+          
+
+        }
+
+        private void HideStartPage()
+        {
+            QuitPath.Visibility = Visibility.Collapsed;
+            SmokingData.Visibility = Visibility.Collapsed;
+            Progress.Visibility = Visibility.Collapsed;
+        }
+        
+        
+        private void FindDates(object sender, RoutedEventArgs e)
+        {
+           
+            ProgressTrack.Visibility = Visibility.Visible;
+            GetDate();
+
+
+            
+           
+        }
+
+        private void GetDate()
+        {
+            DateTime targetDater = (DateTime)DateFinder.SelectedDate;
+            string asp = targetDater.ToShortDateString();
+
+            ProgressMatcher.DataContext = repo.FirstEntry();
+        }
+
+        private void Rubout(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                object item = btn.DataContext;
+
+
+                if (item != null)
+                {
+                    int index = this.SmokingDataBox.Items.IndexOf(item);
+                  var a = repo1.FindEntry(index);
+                  repo1.Delete(a);
+                }
+            }
+        }
+
+        private void Redo(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            if (btn != null)
+            {
+                object item = btn.DataContext;
+
+
+                if (item != null)
+                {
+                    int index = this.SmokingDataBox.Items.IndexOf(item);
+                    var a = repo1.FindEntry(index);
+                    repo1.Delete(a);
+                }
+            }
+        }
+
+        private void DeletePlan(object sender, RoutedEventArgs e)
+        {
+            DeleteCurrentPlan.Visibility = Visibility.Collapsed;
+            repo1.Clear();
+            repo.Clear();
+            ChoosePlan.Visibility = Visibility.Visible;
+            ExitEditButtons.Visibility = Visibility.Visible;
+        }
+
+        private void DoNotDelete(object sender, RoutedEventArgs e)
+        {
+
+        }
+        
+
+      
     }
 }

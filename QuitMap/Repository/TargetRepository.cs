@@ -68,15 +68,32 @@ namespace QuitMap.Repository
             //return query.First<Target>();
         }
 
-        public IEnumerable<Target> GetByDate(string d)
-        {           
-            var query = from Target in _dbContext.Targets
-                        where Target.Date == d
-                        select Target;
-            return query.ToArray<Target>(); 
-           
-        }
+        public List<Target> GetByDate(string d)
+        {
+            var a = (from Target in _dbContext.Targets
+                     where Target.Date == d
+                     select Target).ToList();
+            return a;
 
+        }
+        public List<Target> OrderByDate()
+        {
+         var query = from Target in _dbContext.Targets select Target OrderBy 
+                   
+        public Target FirstEntry()
+        {
+
+            var query = from Target in _dbContext.Targets select Target;
+            return query.ToList<Target>().ElementAt<Target>(0);
+
+        }
+        public Target FindEntry(int i)
+        {
+
+            var query = from Target in _dbContext.Targets select Target;
+            return query.ToList<Target>().ElementAt<Target>(i);
+
+        }
         public void Dispose()
         {
             _dbContext.Dispose();

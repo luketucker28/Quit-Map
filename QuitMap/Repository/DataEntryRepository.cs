@@ -74,10 +74,23 @@ namespace QuitMap.Repository
                     
         }
 
-        public DataEntry GetByDate(string date)
+        public DataEntry GetByFirstDate(string d)
         {
-            throw new NotImplementedException();
+            var a = from DataEntry in _dbContext.DataEntries
+                     where DataEntry.Date == d
+                     select DataEntry;
+            return a.First<DataEntry>();
+
         }
+         public List<DataEntry> GetByDDate(string d)
+        {
+            var a = (from DataEntry in _dbContext.DataEntries
+                     where DataEntry.Date == d
+                     select DataEntry).ToList();
+            return a;
+
+        }
+        
         public void Dispose() {
            _dbContext.Dispose();
         }

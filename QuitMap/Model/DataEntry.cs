@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace QuitMap.Model
 {
@@ -12,8 +13,11 @@ namespace QuitMap.Model
     public class DataEntry : INotifyPropertyChanged
     {
         public int DataEntryId { get; set; }
+       // [Required]
         public string Date { get; set; }
+       // [Required]
         public int NumberSmoked { get; set; }
+       // [Required]
         public int SmokeReduction { get; set; }
 
 
