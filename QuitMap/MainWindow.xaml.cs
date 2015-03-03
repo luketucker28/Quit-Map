@@ -45,6 +45,7 @@ namespace QuitMap
             NewEventForm.Visibility = Visibility.Visible;
             SmokeDataStack.Visibility = Visibility.Visible;
             repo1.OrderByDate();
+            SubmitSmokes.Visibility = Visibility.Visible;
             
         } 
         private void SmokeDaySubmit(object sender, RoutedEventArgs e)
@@ -61,7 +62,6 @@ namespace QuitMap
             {
                 repo1.Add(new Target(smokeDate.ToShortDateString(), smokeTime, placeOfSmoke, AntecedantOFSmoke));
                 repo1.OrderByDate();
-                DayToEnter.SelectedDate = null;
                 Place.SelectedValue = null;
                 Antecedent.SelectedValue = null;
                 TimeOfSmoke.Text = "";
@@ -150,7 +150,7 @@ namespace QuitMap
         private void Track(object sender, RoutedEventArgs e)
         {
             HideStartPage();
-            
+          
             DatePickerFinder.Visibility = Visibility.Visible;
            
           
@@ -171,9 +171,12 @@ namespace QuitMap
         {
             ViewTarget.Visibility = Visibility.Visible;
             Viewer.Visibility = Visibility.Visible;
-            A.Visibility = Visibility.Visible;
+            CountStacker.Visibility = Visibility.Visible;
             DateTime targetDater = (DateTime)DateFinder.SelectedDate;
             string asp = targetDater.ToShortDateString();
+            var a = repo1.GetByDate(asp);
+            int counter = a.Count();
+            C.DataContext = counter;
             A.DataContext = repo1.GetByDate(asp);
             B.DataContext = repo.GetByDate(asp);
             //B.DataContext = repo.GetByDate(asp);
@@ -242,6 +245,15 @@ namespace QuitMap
             QuitBox.Visibility = Visibility.Visible;
             ExitEditButtons.Visibility = Visibility.Visible;
             HideStartPage();
+        }
+
+        private void HomeFromTracker(object sender, RoutedEventArgs e)
+        {
+            ReturnToStartPage();
+            DatePickerFinder.Visibility = Visibility.Collapsed;
+            ViewTarget.Visibility = Visibility.Collapsed;
+            Viewer.Visibility = Visibility.Collapsed;
+            CountStacker.Visibility = Visibility.Collapsed;
         }
 
         
