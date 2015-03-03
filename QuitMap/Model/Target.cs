@@ -10,15 +10,15 @@ using System.Threading.Tasks;
 namespace QuitMap.Model
 {
     public class Target 
-    { //  [Required]
+    {   //[Key]  
         public int TargetId { get; set; }
-      //  [Required]
+        //[Required]
         public string Date { get; set; }
-      //  [Required]
+        //[Required]
         public string Time { get; set; }
-      //  [Required]
+        //[Required]
         public string Place { get; set; }
-      //  [Required]
+        //[Required]
         public string Antecedant { get; set; }
 
         public Target()

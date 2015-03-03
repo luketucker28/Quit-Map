@@ -8,19 +8,22 @@
         <Grid.Background>
             <ImageBrush ImageSource="C:\Users\lucas\Source\Repos\Quit-Map\Images\cigarette.jpg"/>
         </Grid.Background>
+        <Label Name="MainLabel" HorizontalAlignment="Left" Height="115" Margin="46,25,0,0" VerticalAlignment="Top" MaxWidth="500">
+            <TextBlock Foreground="#FFEEDFDF" FontSize="24" TextWrapping="Wrap" FontFamily="Narkisim" UseLayoutRounding="False">Quit Map: Create A Personally Tailored Cigarette Cessation Plan Or Document Your Complete Lack Of Self-Control</TextBlock>
+        </Label>
         <StackPanel x:Name="DeleteCurrentPlan" Visibility="Collapsed" Orientation="Vertical" Width="450">
             <Label  x:Name="DeleteAlert" Width="200" Height="200" Content="Quit Plan Is In Place. Do You Want To Delete Your Current Plan?"/>
             <Button  Content="Yes" x:Name="Yes"  Width= "200" Click="DeletePlan"/>
             <Button  Content="No" x:Name="No"  Width="200" Click="DoNotDelete"/>
         </StackPanel>
-        <StackPanel x:Name="ChoosePlan" Width="400" VerticalAlignment="Center" Visibility="Collapsed">
-            <TextBlock x:Name="NullValues" Visibility="Collapsed"><Run Text="Please Fill Out All Fields"/></TextBlock>
-            <TextBlock x:Name="DateBefore" Visibility="Collapsed"><Run Text="Please Select a Date After Today."/></TextBlock>
-            <TextBlock><Run Text="Pick Your Quit Plan"/></TextBlock>
-            <Label x:Name="StartDateLabel" Content="Select Start Date"/>
-            <DatePicker x:Name="StartDate" Margin="5"/>
-            <Label x:Name="NumberSmokedLabel" Content="Current Cigarettes Smoked Per Day"/>
-            <ComboBox x:Name="DailySmoked" Width="120">
+        <StackPanel x:Name="ChoosePlan" Width="400" VerticalAlignment="Center" Visibility="Collapsed" Background="#FF4D5754">
+            <TextBlock Foreground="#FFEEDFDF" FontSize="16"  x:Name="NullValues" Visibility="Collapsed"><Run Text="Please Fill Out All Fields"/></TextBlock>
+            <TextBlock Foreground="#FFEEDFDF" FontSize="16" x:Name="DateBefore" Visibility="Collapsed"><Run Text="Please Select a Date After Today."/></TextBlock>
+            <TextBlock Foreground="#FFEEDFDF" FontSize="24" TextAlignment="Center"><Run Text="Choose Your Quit Plan"/></TextBlock>
+            <Label Foreground="#FFEEDFDF" HorizontalAlignment="Center" FontSize="14" x:Name="StartDateLabel" Content="Select Start Date"/>
+            <DatePicker x:Name="StartDate" Margin="0, 5, 0, 0"/>
+            <Label Foreground="#FFEEDFDF" HorizontalAlignment="Center" FontSize="14"  x:Name="NumberSmokedLabel" Content="Current Cigarettes Smoked Per Day"/>
+            <ComboBox  x:Name="DailySmoked" Margin="0, 5, 0, 0" Width="120">
                 <sys:Int32>1</sys:Int32>
                 <sys:Int32>2</sys:Int32>
                 <sys:Int32>3</sys:Int32>
@@ -37,8 +40,8 @@
                 <sys:Int32>14</sys:Int32>
                 <sys:Int32>15</sys:Int32>
             </ComboBox>
-            <Label x:Name="LabelReduction" Content="Reduce by How Many"/>
-            <ComboBox x:Name="ReductionPerWeek" Width="120">
+            <Label Foreground="#FFEEDFDF" HorizontalAlignment="Center" FontSize="14" x:Name="LabelReduction" Content="Reduce by How Many"/>
+            <ComboBox x:Name="ReductionPerWeek" Margin="0, 5, 0, 0" Width="120">
                 <sys:Int32>1</sys:Int32>
                 <sys:Int32>2</sys:Int32>
                 <sys:Int32>3</sys:Int32>
@@ -47,17 +50,18 @@
             </ComboBox>
             <Button Content="SubmitPlan" x:Name="SubmitPlan" Click="Plan_Submit"/>
         </StackPanel>
-        <StackPanel x:Name="QuitBox" Width="420" Visibility="Collapsed">
-            <ListBox HorizontalAlignment="Left" Height="300" VerticalAlignment="Top" Width="400" x:Name="QuitDayAdded" ItemsSource="{Binding NotifyOnSourceUpdated=True}">
+        <StackPanel x:Name="QuitBox" Width="550" Visibility="Collapsed">
+            <Label Foreground="#FFEEDFDF" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18" x:Name="CurrentReductionPlan" Content="Current Quit Plan"/>
+            <ListBox HorizontalAlignment="Left" Margin="0, 50, 0, 0" Height="300" VerticalAlignment="Top" Width="550" x:Name="QuitDayAdded" ItemsSource="{Binding NotifyOnSourceUpdated=True}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="0, 0, 5, 0"><Run Text="Date"/></TextBlock>
-                            <TextBlock x:Name="Targeter" Margin="0, 0, 10, 0" Text="{Binding Date, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock Margin="0, 0, 5, 0"><Run Text="Target"/></TextBlock>
-                            <TextBlock x:Name="Dated" Margin="0, 0, 10, 0" Text="{Binding NumberSmoked, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock Margin="0, 0, 5, 0"><Run Text="Weekly Reduction"/></TextBlock>
-                            <TextBlock x:Name="Reduction" Margin="0, 0, 10, 0" Text="{Binding SmokeReduction, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Width="75" Margin="0, 0, 10, 0"><Run Text="Date"/></TextBlock>
+                            <TextBlock Width="75" x:Name="Targeter" Margin="0, 0, 10, 0" Text="{Binding Date, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Width="100" Margin="0, 0, 10, 0"><Run Text="Daily Target"/></TextBlock>
+                            <TextBlock Width="50"  x:Name="Dated" Margin="0, 0, 10, 0" Text="{Binding NumberSmoked, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Width="125" Margin="0, 0, 10, 0"><Run Text="Weekly Reduction"/></TextBlock>
+                            <TextBlock Width="50" x:Name="Reduction" Margin="0, 0, 10, 0" Text="{Binding SmokeReduction, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
@@ -66,73 +70,85 @@
         <StackPanel x:Name="ExitEditButtons" Width="300" VerticalAlignment="Bottom" Visibility="Collapsed">
             <Button Content="ExitPlan" x:Name="Exiting" Click="ReturnToInitial"/>
         </StackPanel>
-        <DataGrid x:Name="SmokingDataGrid" Visibility="Collapsed" Width="400">
-            <DataGridTextColumn Width="130"/>
-        </DataGrid>
-        <StackPanel Width="410" Orientation="Horizontal"  VerticalAlignment="Top" x:Name="NewEventForm" Visibility="Collapsed">
+        <StackPanel Width="500" VerticalAlignment="Top" Visibility="Collapsed" Name="LabelForEntry" Orientation="Horizontal">
+            <Label Foreground="#FFEEDCDC" Margin="8,0,15,0">Date Smoked</Label>
+            <Label Foreground="#FFEEDCDC" Margin="0,0,15,0">Time Smoked</Label>
+            <Label Foreground="#FFEEDCDC" Margin="0,0,15,0">Place Smoked</Label>
+            <Label Foreground="#FFEEDCDC" Margin="0,0,15,0">Reason for Smoking</Label>
+        </StackPanel>
+        <StackPanel Width="500" Orientation="Horizontal" VerticalAlignment="Top" x:Name="NewEventForm" Visibility="Collapsed" Margin="0,10,0,20">
             <Label x:Name="NullValuesExist" Visibility="Collapsed" Content="Please Enter Information Into All Fields"/>
-            <DatePicker x:Name="DayToEnter" Margin="5" />
-            <TextBox x:Name="TimeOfSmoke" Width="75" Margin="10"/>
-            <ComboBox x:Name="Place" Width="100">
+            <DatePicker x:Name="DayToEnter" Height="25" Width="100" Margin="0,15,10,0" />
+            <TextBox x:Name="TimeOfSmoke" Height="25" Width="75" Margin="0 ,15, 10, 0"/>
+            <ComboBox x:Name="Place"  Height="25" Margin="0,15, 10, 0" Width="100">
                 <ComboBoxItem x:Name="Home" Content="Home"/>
                 <ComboBoxItem x:Name="Work" Content="Work"/>
                 <ComboBoxItem x:Name="School" Content="School"/>
                 <ComboBoxItem x:Name="Driving" Content="Driving"/>
                 <ComboBoxItem x:Name="Social" Content="Social Event"/>
             </ComboBox>
-            <ComboBox x:Name="Antecedent" Width="100">
+            <ComboBox x:Name="Antecedent" Height="25" Margin="0, 15, 10, 0" Width="100">
                 <ComboBoxItem x:Name="WorkStress" Content="Work Stress"/>
                 <ComboBoxItem x:Name="Boredom" Content="Boredom"/>
                 <ComboBoxItem x:Name="Sadness" Content="Sadness"/>
                 <ComboBoxItem x:Name="Anger" Content="Anger"/>
                 <ComboBoxItem x:Name="Sex" Content="Sex"/>
             </ComboBox>
-        </StackPanel>
-        <StackPanel Visibility="Collapsed" x:Name="ButtonsForDataEntry" Width="300"  VerticalAlignment="Bottom">
-            <Button Content="Submit" Width="100" Margin="10" x:Name="SubmitSmokes" Click="SmokeDaySubmit"/>
-            <Button Content="ReturnToHomePage" Width="100" Margin="10" x:Name="ExitDataEntry" Click="ExitSmokePage"/>
-            <Button Content="EditSmokeData" Width="100" Visibility="Collapsed" VerticalAlignment="Center" Margin="10" x:Name="EditSmokingEntries" Click="EditSmokingInfo"/>
+            <Button Content="Submit"  Width="75" Margin="0, 15, 10 ,0" Height ="25" x:Name="SubmitSmokes" Click="SmokeDaySubmit"/>
         </StackPanel>
         <Button Content="Choose Your Quit Path" x:Name="QuitPath" Click="Quit" Margin="54,175,384,200" Background="#FFE4DC3F"/>
-        <Button Content="Enter Your Data" x:Name="SmokingData" Click="Data" Margin="54,219,384,127" Background="#FFE6DE3D"/>
+        <Button Content="Enter And Edit Your Data" x:Name="SmokingData" Click="Data" Margin="54,219,384,127" Background="#FFE6DE3D"/>
         <Button Content="Track Your Progress" x:Name="Progress" Click="Track" Margin="54,273,384,104" Background="#FFE0D83F"/>
-        <Button Content="View Your Smoking Data" x:Name="ViewData" Click="ViewEnteredData" Background="#FFE0D83F" HorizontalAlignment="Left" Height="42" Margin="54,315,0,0" VerticalAlignment="Top" Width="154"/>
         <Button Content="View Your Current Plan" Click="TakeToQuitBox" x:Name="SeePlan" Background="#FFE0D83F" HorizontalAlignment="Left" Height="42" Margin="54,357,0,0" VerticalAlignment="Top" Width="154"/>
-        <TextBlock HorizontalAlignment="Left" Margin="74,23,0,0" TextWrapping="Wrap" Text="Quit It" VerticalAlignment="Top" Width="431" Height="61" FontSize="24" FontFamily="Century" Foreground="#FFE0D7D7"/>
-        <StackPanel x:Name="SmokeDataStack" Width="420" Visibility="Collapsed">
-            <ListBox HorizontalAlignment="Left" Height="300" VerticalAlignment="Top"  Width="400" x:Name="SmokingDataBox" ItemsSource="{Binding NotifyOnSourceUpdated=True}">
+        <StackPanel x:Name="SmokeDataStack" VerticalAlignment="Top" Margin="0,75,0,0" Width="550" Visibility="Collapsed">
+            <ListBox HorizontalAlignment="Left" Height="300" VerticalAlignment="Top"  Width="550" x:Name="SmokingDataBox" ItemsSource="{Binding NotifyOnSourceUpdated=True}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Name="DataDate" Text="{Binding Date, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock x:Name="DatedTime" Text="{Binding Time, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock x:Name="DataPlace" Text="{Binding Place, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBlock x:Name="DataAntecedent" Text="{Binding Antecedant, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-                            <Button Content="Delete" x:Name="Deleter" Click="Rubout" Width="50"/>
-                            <Button Content="Editer" x:Name="Editer" Click ="Redo" Width="50"/>
+                            <TextBlock Margin="0,0,15,0" Width="75"  x:Name="DataDate" Text="{Binding Date, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Margin="0,0,15,0" Width="75"  x:Name="DatedTime" Text="{Binding Time, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Margin="0,0,15,0" Width="75"  x:Name="DataPlace" Text="{Binding Place, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock Margin="0,0,15,0" Width="75"   x:Name="DataAntecedent" Text="{Binding Antecedant, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <Button Margin="0,0,15,0" Content="Delete" x:Name="Deleter" Click="Rubout" Width="75"/>
+                            <Button Margin="0,0,15,0" Content="Editer" x:Name="Editer" Click ="Redo" Width="75"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <Button Content="Return To Home Page" Width="150" Margin="10" x:Name="ExitDataEntry" Click="ExitSmokePage"/>
+
         </StackPanel>
-        <Button x:Name="AddMore" VerticalAlignment="Bottom" Visibility="Collapsed" Width="50" Content="AddNewItem" Click="ReturnToDataAddPage"/>
         <StackPanel x:Name="DatePickerFinder" Width="400" Visibility="Collapsed">
             <Label Content="Find Your Smoke Habits By Date"/>
             <DatePicker x:Name="DateFinder" Width="150"/>
             <Button Content="Select Date To See Data" x:Name="Dates" Click="FindDates" Width="100"/>
         </StackPanel>
-
-
-        <StackPanel Orientation="Horizontal"  x:Name="TargetTrack" Width="400" Visibility="Collapsed" VerticalAlignment="Bottom">
-            <TextBlock x:Name="A" Width="100" Background="AntiqueWhite" Text="{Binding Date, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock x:Name="B"  Width="100" Background="AntiqueWhite" Text="{Binding NumberSmoked, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock x:Name="C" Width="100" Background="AntiqueWhite" Text="{Binding SmokeReduction, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel x:Name="Viewer" Width="420" Visibility="Collapsed" VerticalAlignment="Bottom">
+            <ListBox HorizontalAlignment="Left" Height="100" VerticalAlignment="Bottom"  Width="400" x:Name="A" ItemsSource="{Binding NotifyOnSourceUpdated=True}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="ADate" Text="{Binding Date, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock x:Name="ATime" Text="{Binding Time, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock x:Name="APlace" Text="{Binding Place, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock x:Name="AAntecedent" Text="{Binding Antecedant, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
-        <StackPanel Orientation="Horizontal"  x:Name="ActualTrack" Width="400" Height="150" Visibility="Collapsed" VerticalAlignment="Center">
-            <TextBlock x:Name="D"  Width="100" Background="AntiqueWhite" Text="{Binding Time, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock x:Name="E" Width="100" Background="AntiqueWhite" Text="{Binding Place, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
-            <TextBlock x:Name="F"  Width="100" Background="AntiqueWhite" Text="{Binding Antecedant, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+        <StackPanel x:Name="ViewTarget" Width="420" Visibility="Collapsed" VerticalAlignment="Center">
+            <ListBox HorizontalAlignment="Left" Height="50" VerticalAlignment="Bottom"  Width="400" x:Name="B" ItemsSource="{Binding NotifyOnSourceUpdated=True}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Name="BDate" Width="100" Margin="0,0,15,0" Text="{Binding Date, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock x:Name="BTarget" Width="100" Margin="0,0,15,0" Text="{Binding NumberSmoked, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock x:Name="BReduced" Width="100" Margin="0,0,15,0" Text="{Binding SmokeReduction, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
-
     </Grid>
 </Window>
