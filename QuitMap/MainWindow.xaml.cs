@@ -44,7 +44,7 @@ namespace QuitMap
             LabelForEntry.Visibility = Visibility.Visible;
             NewEventForm.Visibility = Visibility.Visible;
             SmokeDataStack.Visibility = Visibility.Visible;
-            repo1.OrderByDate();
+            repo1.OrderById();
             SubmitSmokes.Visibility = Visibility.Visible;
             
         } 
@@ -60,8 +60,9 @@ namespace QuitMap
             }
             else
             {
+                repo1.OrderById();
                 repo1.Add(new Target(smokeDate.ToShortDateString(), smokeTime, placeOfSmoke, AntecedantOFSmoke));
-                repo1.OrderByDate();
+               
                 Place.SelectedValue = null;
                 Antecedent.SelectedValue = null;
                 TimeOfSmoke.Text = "";
@@ -92,8 +93,16 @@ namespace QuitMap
         private void Quit(object sender, RoutedEventArgs e)
         {
             HideStartPage();
-            ChoosePlan.Visibility = Visibility.Visible;
-            ExitEditButtons.Visibility = Visibility.Visible;
+           // ExitEditButtons.Visibility = Visibility.Visible;
+            if (repo.GetCount() != 0) {
+                DeleteCurrentPlan.Visibility = Visibility.Visible;
+                
+            }
+            else
+            {
+                ChoosePlan.Visibility = Visibility.Visible;
+                ExitEditButtons.Visibility = Visibility.Visible;
+            }
         }
         
         private void Plan_Submit(object sender, RoutedEventArgs e)
@@ -102,10 +111,10 @@ namespace QuitMap
             {
                 NullValues.Visibility = Visibility.Visible;
             }               
-            else if (repo.GetCount() != 0) {
-                DeleteCurrentPlan.Visibility = Visibility.Visible;
-                ChoosePlan.Visibility = Visibility.Collapsed;
-            }                     
+            //else if (repo.GetCount() != 0) {
+            //    DeleteCurrentPlan.Visibility = Visibility.Visible;
+            //    ChoosePlan.Visibility = Visibility.Collapsed;
+            //}                     
             else
             {
                 QuitBox.Visibility = Visibility.Visible;
@@ -115,15 +124,23 @@ namespace QuitMap
                 DateTime tryer = (DateTime)StartDate.SelectedDate;
       
                 repo.Add(new DataEntry(tryer.ToShortDateString(), smokeDaily, reduceRate));
-                int totalDays = ((smokeDaily / reduceRate) * 7);           
+                double days = ((double)smokeDaily / reduceRate) * 7;
+                int totalDays = (int)Math.Ceiling(days);
                 int counter = 1;           
                 while (counter < totalDays)
                 {
-                    if (counter % 7 == 0)
+                    if (counter % 7 == 0 && smokeDaily > reduceRate)
                     {
                       int smokeReducer = smokeDaily - reduceRate;
                         smokeDaily = smokeReducer;
                         repo.Add(new DataEntry(tryer.AddDays(counter).ToShortDateString(), smokeReducer, reduceRate));                     
+                        counter++;
+                    }
+                    else if (smokeDaily < reduceRate && totalDays - counter <= 7)
+                    {
+                         reduceRate = smokeDaily;
+                     
+                        repo.Add(new DataEntry(tryer.AddDays(counter).ToShortDateString(), smokeDaily, reduceRate));
                         counter++;
                     }
                     else

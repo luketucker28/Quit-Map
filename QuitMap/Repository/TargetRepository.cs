@@ -80,8 +80,17 @@ namespace QuitMap.Repository
         {
             var query = (from Target in _dbContext.Targets
                          orderby Target.Date select Target).ToList();
+            _dbContext.SaveChanges();
             return query;
-        }          
+        }
+        public IEnumerable<Target> OrderById()
+        {
+            var query = (from Target in _dbContext.Targets
+                         orderby Target.TargetId
+                         select Target).ToList();
+            _dbContext.SaveChanges();
+            return query;
+        }  
         public Target FirstEntry()
         {
 
